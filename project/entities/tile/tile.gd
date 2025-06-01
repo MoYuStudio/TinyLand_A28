@@ -25,6 +25,11 @@ var counter: int = 0       # 计数器
 var is_selected: bool = false  # 是否被选中
 var is_dragging: bool = false  # 是否正在拖动
 
+# 缓存
+var _last_mouse_pos: Vector2
+var _update_timer: float = 0.0
+const UPDATE_INTERVAL: float = 0.1  # 每0.1秒更新一次
+
 # 信号
 signal tile_selected(tile: Node2D)
 signal tile_deselected(tile: Node2D)
@@ -40,11 +45,8 @@ func _input(event: InputEvent):
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				is_dragging = true
-				var mouse_pos = get_global_mouse_position()
-				var local_pos = mouse_pos - position
-				var dx = abs(local_pos.x)
-				var dy = abs(local_pos.y + 4)  # 修正y偏移
-				if dx <= 8 and dy <= 4 and (dx/8 + dy/4) <= 1:
+				_last_mouse_pos = get_global_mouse_position()
+				if is_point_in_tile(_last_mouse_pos):
 					toggle_selected()
 			else:
 				is_dragging = false
@@ -52,12 +54,15 @@ func _input(event: InputEvent):
 			clear_selected()
 	elif event is InputEventMouseMotion and is_dragging:
 		var mouse_pos = get_global_mouse_position()
-		var local_pos = mouse_pos - position
-		var dx = abs(local_pos.x)
-		var dy = abs(local_pos.y + 4)  # 修正y偏移
-		if dx <= 8 and dy <= 4 and (dx/8 + dy/4) <= 1:
-			if !is_selected:
-				toggle_selected()
+		if is_point_in_tile(mouse_pos) and !is_selected:
+			toggle_selected()
+		_last_mouse_pos = mouse_pos
+
+func is_point_in_tile(point: Vector2) -> bool:
+	var local_pos = point - position
+	var dx = abs(local_pos.x)
+	var dy = abs(local_pos.y + 4)
+	return dx <= 8 and dy <= 4 and (dx/8 + dy/4) <= 1
 
 func toggle_selected():
 	is_selected = !is_selected
@@ -74,15 +79,14 @@ func clear_selected():
 		emit_signal("tile_deselected", self)
 
 func _process(delta):
-	timer += delta
-	match tile_name:
-		"water":
-			# 水面动画由AnimatedSprite自动播放
-			pass
-		"farmland":
-			update_farmland(delta)
-		"lava":
-			update_lava(delta)
+	_update_timer += delta
+	if _update_timer >= UPDATE_INTERVAL:
+		_update_timer = 0.0
+		match tile_name:
+			"farmland":
+				update_farmland(delta)
+			"lava":
+				update_lava(delta)
 
 func update_tile_properties():
 	match tile_name:
@@ -112,17 +116,13 @@ func update_tile_properties():
 			alpha = farmland_alpha
 
 func update_visual():
-	# 检查是否存在对应的动画
 	if animated_sprite.sprite_frames.has_animation(tile_name):
-		# 如果有动画，播放动画
 		animated_sprite.animation = tile_name
 		animated_sprite.play()
 	else:
-		# 如果没有动画，显示静态图片
 		var texture_path = "res://entities/tile/art/" + tile_name + ".png"
 		var texture = load(texture_path)
 		if texture:
-			# 创建单帧动画
 			var sprite_frames = SpriteFrames.new()
 			sprite_frames.add_animation(tile_name)
 			sprite_frames.add_frame(tile_name, texture)
@@ -132,13 +132,13 @@ func update_visual():
 
 func update_farmland(delta: float):
 	if is_plantable and growth_stage < 3:
+		timer += delta
 		if timer >= 5.0:
 			timer = 0.0
 			growth_stage += 1
 
 func update_lava(delta: float):
-	if is_light_source:
-		pass
+	pass  # 简化岩浆更新逻辑
 
 func update_alpha():
 	animated_sprite.modulate.a = alpha
@@ -148,10 +148,11 @@ func set_alpha(new_alpha: float):
 	update_alpha()
 
 func set_tile_type(new_type: String):
-	tile_name = new_type
-	update_tile_properties()
-	update_visual()
-	update_alpha()
+	if tile_name != new_type:
+		tile_name = new_type
+		update_tile_properties()
+		update_visual()
+		update_alpha()
 
 func can_pass() -> bool:
 	return is_passable

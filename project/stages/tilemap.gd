@@ -8,9 +8,13 @@ var tile_size = 16  # 瓷砖大小为16x16像素
 @export var map_size = 256      # 地图尺寸（正方形）
 
 # 柏林噪声参数
-@export var noise_scale: float = 0.02    # 噪声缩放（降低使地形变化更平缓）
+@export var noise_scale: float = 0.02    # 噪声缩放
 @export var water_threshold: float = 0.5 # 水面阈值
 var noise: FastNoiseLite
+
+# 缓存地图边界
+var _map_bounds: Dictionary
+var _map_offset: Vector2i
 
 # 地形类型定义
 const TILE_TYPES = {
@@ -32,11 +36,15 @@ func _ready():
 	# 初始化柏林噪声
 	noise = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	noise.seed = randi()  # 随机种子
-	noise.fractal_octaves = 9        # 减少八度，使地形更平滑
-	noise.fractal_gain = 0.6         # 降低增益，减少剧烈变化
-	noise.fractal_lacunarity = 1.6   # 降低间隙，使地形更连贯
-	noise.frequency =3.0            # 降低频率，减少细节变化
+	noise.seed = randi()
+	noise.fractal_octaves = 6        # 减少八度
+	noise.fractal_gain = 0.5         # 降低增益
+	noise.fractal_lacunarity = 1.4   # 降低间隙
+	noise.frequency = 2.0            # 降低频率
+	
+	# 预计算地图偏移和边界
+	_map_offset = calculate_map_offset()
+	_map_bounds = get_map_bounds()
 	
 	# 创建初始地图
 	generate_map()
@@ -48,47 +56,42 @@ func generate_map():
 	tiles.clear()
 	
 	# 生成新地图
-	var map_offset = calculate_map_offset()
 	for x in range(map_size):
 		for y in range(map_size):
-			var grid_pos = Vector2i(x, y) + map_offset
-			# 使用柏林噪声生成地形
+			var grid_pos = Vector2i(x, y) + _map_offset
+			# 使用单次噪声计算
 			var noise_value = get_noise_value(x, y)
-			# 使用两个噪声层叠加，减少细节变化
-			var noise2 = get_noise_value(x * 1.5, y * 1.5) * 0.3
-			var final_noise = (noise_value + noise2) / 1.3
-			
-			var tile_type = "water" if final_noise < water_threshold else "grass"
+			var tile_type = "water" if noise_value < water_threshold else "grass"
 			add_tile(grid_pos, tile_type)
 
 func get_noise_value(x: int, y: int) -> float:
-	# 获取柏林噪声值
 	var nx = x * noise_scale
 	var ny = y * noise_scale
-	return (noise.get_noise_2d(nx, ny) + 1.0) / 2.0  # 将值映射到0-1范围
+	return (noise.get_noise_2d(nx, ny) + 1.0) / 2.0
 
-# 等距地图的坐标转换
+# 等距地图的坐标转换（使用缓存）
+var _grid_to_world_cache = {}
 func grid_to_world(grid_pos: Vector2i) -> Vector2:
-	# 等距地图的坐标转换公式
+	if _grid_to_world_cache.has(grid_pos):
+		return _grid_to_world_cache[grid_pos]
+	
 	var x = (grid_pos.x - grid_pos.y) * (tile_size / 2)
 	var y = (grid_pos.x + grid_pos.y) * (tile_size / 4)
-	return Vector2(x, y)
+	var result = Vector2(x, y)
+	_grid_to_world_cache[grid_pos] = result
+	return result
 
 func world_to_grid(world_pos: Vector2) -> Vector2i:
-	# 反向转换：从世界坐标到网格坐标
 	var x = (world_pos.x / (tile_size / 2) + world_pos.y / (tile_size / 4)) / 2
 	var y = (world_pos.y / (tile_size / 4) - world_pos.x / (tile_size / 2)) / 2
 	return Vector2i(round(x), round(y))
 
 func calculate_map_offset() -> Vector2i:
-	# 计算地图偏移，使地图居中
 	var half_size = map_size / 2
 	return Vector2i(-half_size, -half_size)
 
 func is_valid_position(grid_position: Vector2i) -> bool:
-	# 检查位置是否在地图范围内
-	var map_offset = calculate_map_offset()
-	var relative_pos = grid_position - map_offset
+	var relative_pos = grid_position - _map_offset
 	return relative_pos.x >= 0 and relative_pos.x < map_size and \
 		   relative_pos.y >= 0 and relative_pos.y < map_size
 
