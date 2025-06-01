@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccouvm6jpdjdr"]
+
+[ext_resource type="Script" uid="uid://csr0pv7mbvtw4" path="res://entities/tile/tile.gd" id="1_gxcy2"]
+[ext_resource type="SpriteFrames" uid="uid://byxxlfaru3up1" path="res://entities/tile/art/tile_animations.tres" id="2_yvnqm"]
+
+[node name="Tile" type="Node2D"]
+script = ExtResource("1_gxcy2")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = ExtResource("2_yvnqm")
+animation = &"grass"
+frame_progress = 0.871834

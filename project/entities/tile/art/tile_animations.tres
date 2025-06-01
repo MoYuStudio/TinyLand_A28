@@ -1,0 +1,27 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://byxxlfaru3up1"]
+
+[ext_resource type="Texture2D" uid="uid://djls7bk2se6fl" path="res://entities/tile/art/grass.png" id="1_ntp3x"]
+[ext_resource type="Texture2D" uid="uid://bvqp661o34e3n" path="res://entities/tile/art/water.png" id="2_81vrb"]
+[ext_resource type="Texture2D" uid="uid://b8uacvmhkr6dv" path="res://entities/tile/art/water_1.png" id="3_pb73k"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ntp3x")
+}],
+"loop": true,
+"name": &"grass",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_81vrb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pb73k")
+}],
+"loop": true,
+"name": &"water",
+"speed": 5.0
+}]
