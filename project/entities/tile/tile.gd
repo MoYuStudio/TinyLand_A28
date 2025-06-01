@@ -17,6 +17,7 @@ extends Node2D
 # 节点引用
 @onready var animated_sprite = $AnimatedSprite
 @onready var choose_sprite = $Choose
+@onready var main = get_node("/root/Main")
 
 # 状态变量
 var growth_stage: int = 0  # 生长阶段（用于可种植的地形）
@@ -39,6 +40,10 @@ func _ready():
 	update_visual()
 	update_alpha()
 	choose_sprite.visible = false
+	
+	# 确保Main节点存在
+	if main == null:
+		push_error("无法找到Main节点！请确保Main场景已添加到场景树中。")
 
 func _input(event: InputEvent):
 	if event is InputEventMouseButton:
@@ -78,10 +83,13 @@ func toggle_selected():
 		
 		if not has_building:
 			# 获取选中的建筑类型
-			var main = get_node("/root/Main")
-			var building_type = main.get_selected_building_type()
-			if building_type.is_empty():
-				building_type = "building"  # 默认建筑类型
+			var building_type = "building"  # 默认建筑类型
+			if main != null:
+				building_type = main.get_selected_building_type()
+				if building_type.is_empty():
+					building_type = "building"  # 如果获取失败，使用默认类型
+			else:
+				push_warning("Main节点未找到，使用默认建筑类型")
 			
 			# 创建building
 			var building_scene = load("res://entities/building/Building.tscn")
@@ -99,7 +107,7 @@ func toggle_selected():
 				set_sailable(false)
 				set_plantable(false)
 			else:
-				print("无法加载Building场景")
+				push_error("无法加载Building场景")
 	else:
 		emit_signal("tile_deselected", self)
 

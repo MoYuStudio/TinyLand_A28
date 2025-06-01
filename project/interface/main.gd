@@ -40,7 +40,8 @@ func _ready():
 	
 	# 连接所有建筑按钮的信号
 	for button in all_building_buttons:
-		button.pressed.connect(_on_building_button_pressed.bind(button))
+		if button != null:
+			button.pressed.connect(_on_building_button_pressed.bind(button))
 	
 	# 初始化面板状态
 	building_panel.visible = is_panel_visible
@@ -67,15 +68,22 @@ func _on_toggle_button_pressed():
 	building_panel.visible = is_panel_visible
 
 func _on_building_button_pressed(button: Button):
+	if button == null:
+		return
+		
 	# 获取按钮名称并转换为建筑类型
 	var button_name = button.name.to_lower()
 	selected_building_type = button_name.replace("button", "")
 	_update_button_states(button)
 
 func _update_button_states(selected_button: Button):
+	if selected_button == null:
+		return
+		
 	# 重置所有按钮状态
 	for button in all_building_buttons:
-		button.modulate = Color(1, 1, 1)
+		if button != null:
+			button.modulate = Color(1, 1, 1)
 	
 	# 高亮选中的按钮
 	selected_button.modulate = Color(0.7, 0.7, 1)
