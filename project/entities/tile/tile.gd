@@ -69,21 +69,30 @@ func toggle_selected():
 	choose_sprite.visible = is_selected
 	if is_selected:
 		emit_signal("tile_selected", self)
-		# 创建building
-		var building_scene = load("res://entities/building/Building.tscn")
-		if building_scene:
-			print("成功加载Building场景")
-			var building = building_scene.instantiate()
-			get_parent().add_child(building)
-			# 设置building位置，在等距地图中向上偏移8像素
-			building.position = position + Vector2(0, -8)
-			building.start_construction()
-			# 设置tile属性
-			set_passable(false)
-			set_sailable(false)
-			set_plantable(false)
-		else:
-			print("无法加载Building场景")
+		# 检查该位置是否已有building
+		var has_building = false
+		for child in get_parent().get_children():
+			if child.is_in_group("buildings") and child.position == position + Vector2(0, -8):
+				has_building = true
+				break
+		
+		if not has_building:
+			# 创建building
+			var building_scene = load("res://entities/building/Building.tscn")
+			if building_scene:
+				print("成功加载Building场景")
+				var building = building_scene.instantiate()
+				building.add_to_group("buildings")  # 添加到buildings组
+				get_parent().add_child(building)
+				# 设置building位置，在等距地图中向上偏移8像素
+				building.position = position + Vector2(0, -8)
+				building.start_construction()
+				# 设置tile属性
+				set_passable(false)
+				set_sailable(false)
+				set_plantable(false)
+			else:
+				print("无法加载Building场景")
 	else:
 		emit_signal("tile_deselected", self)
 

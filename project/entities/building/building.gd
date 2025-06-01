@@ -39,6 +39,8 @@ signal construction_completed(building: Node2D)
 signal building_destroyed(building: Node2D)
 
 func _ready():
+	z_index = 1  # 设置building始终在tile上层
+	add_to_group("buildings")  # 添加到buildings组
 	update_building_properties()
 	update_visual()
 	update_alpha()

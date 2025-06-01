@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://vykjjlxde13p" path="res://interface/main.tscn" id="3_1assy"]
 
 [node name="Tilemap" type="Node2D"]
+y_sort_enabled = true
+texture_filter = 1
 script = ExtResource("1_oufpx")
 map_size = 64
 
