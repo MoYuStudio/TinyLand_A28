@@ -16,16 +16,62 @@ extends Node2D
 
 # 节点引用
 @onready var animated_sprite = $AnimatedSprite
+@onready var choose_sprite = $Choose
 
 # 状态变量
 var growth_stage: int = 0  # 生长阶段（用于可种植的地形）
 var timer: float = 0.0     # 计时器
 var counter: int = 0       # 计数器
+var is_selected: bool = false  # 是否被选中
+var is_dragging: bool = false  # 是否正在拖动
+
+# 信号
+signal tile_selected(tile: Node2D)
+signal tile_deselected(tile: Node2D)
 
 func _ready():
 	update_tile_properties()
 	update_visual()
 	update_alpha()
+	choose_sprite.visible = false
+
+func _input(event: InputEvent):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				is_dragging = true
+				var mouse_pos = get_global_mouse_position()
+				var local_pos = mouse_pos - position
+				var dx = abs(local_pos.x)
+				var dy = abs(local_pos.y + 4)  # 修正y偏移
+				if dx <= 8 and dy <= 4 and (dx/8 + dy/4) <= 1:
+					toggle_selected()
+			else:
+				is_dragging = false
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			clear_selected()
+	elif event is InputEventMouseMotion and is_dragging:
+		var mouse_pos = get_global_mouse_position()
+		var local_pos = mouse_pos - position
+		var dx = abs(local_pos.x)
+		var dy = abs(local_pos.y + 4)  # 修正y偏移
+		if dx <= 8 and dy <= 4 and (dx/8 + dy/4) <= 1:
+			if !is_selected:
+				toggle_selected()
+
+func toggle_selected():
+	is_selected = !is_selected
+	choose_sprite.visible = is_selected
+	if is_selected:
+		emit_signal("tile_selected", self)
+	else:
+		emit_signal("tile_deselected", self)
+
+func clear_selected():
+	if is_selected:
+		is_selected = false
+		choose_sprite.visible = false
+		emit_signal("tile_deselected", self)
 
 func _process(delta):
 	timer += delta
