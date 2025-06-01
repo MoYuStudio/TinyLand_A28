@@ -77,12 +77,19 @@ func toggle_selected():
 				break
 		
 		if not has_building:
+			# 获取选中的建筑类型
+			var main = get_node("/root/Main")
+			var building_type = main.get_selected_building_type()
+			if building_type.is_empty():
+				building_type = "building"  # 默认建筑类型
+			
 			# 创建building
 			var building_scene = load("res://entities/building/Building.tscn")
 			if building_scene:
 				print("成功加载Building场景")
 				var building = building_scene.instantiate()
 				building.add_to_group("buildings")  # 添加到buildings组
+				building.set_building_type(building_type)  # 设置建筑类型
 				get_parent().add_child(building)
 				# 设置building位置，在等距地图中向上偏移8像素
 				building.position = position + Vector2(0, -8)
