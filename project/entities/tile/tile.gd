@@ -69,6 +69,21 @@ func toggle_selected():
 	choose_sprite.visible = is_selected
 	if is_selected:
 		emit_signal("tile_selected", self)
+		# 创建building
+		var building_scene = load("res://entities/building/Building.tscn")
+		if building_scene:
+			print("成功加载Building场景")
+			var building = building_scene.instantiate()
+			get_parent().add_child(building)
+			# 设置building位置，在等距地图中向上偏移8像素
+			building.position = position + Vector2(0, -8)
+			building.start_construction()
+			# 设置tile属性
+			set_passable(false)
+			set_sailable(false)
+			set_plantable(false)
+		else:
+			print("无法加载Building场景")
 	else:
 		emit_signal("tile_deselected", self)
 
@@ -169,3 +184,12 @@ func get_growth_stage() -> int:
 func increment_counter():
 	counter += 1
 	# 可以添加计数器达到特定值时的效果
+
+func set_passable(value: bool):
+	is_passable = value
+
+func set_sailable(value: bool):
+	is_sailable = value
+
+func set_plantable(value: bool):
+	is_plantable = value

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6x8v0j6y5n3q"]
+
+[ext_resource type="Script" uid="uid://xwrj5tw5fgl0" path="res://entities/building/building.gd" id="1_2k4m3"]
+[ext_resource type="Texture2D" uid="uid://mfiam5n8ieqe" path="res://entities/building/art/choose.png" id="2_3k4m3"]
+
+[node name="Building" type="Node2D"]
+script = ExtResource("1_2k4m3")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+
+[node name="Choose" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+texture_filter = 1
+texture = ExtResource("2_3k4m3")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+texture_filter = 1
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 8.0
+offset_bottom = -8.0
+value = 100.0
+show_percentage = false
