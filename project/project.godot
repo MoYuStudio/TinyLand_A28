@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="project"
-run/main_scene="uid://b84sfw8501pg3"
+run/main_scene="uid://sisaduj5cy0k"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/show_image=false
 boot_splash/fullsize=false

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b84sfw8501pg3"]
+
+[ext_resource type="Script" uid="uid://bt82ll2oo5px5" path="res://stages/tilemap/tilemap.gd" id="1_oufpx"]
+
+[node name="Tilemap" type="Node2D"]
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("1_oufpx")

@@ -6,9 +6,13 @@ extends Camera2D
 @export var max_zoom = 10.0      # 最大缩放
 @export var zoom_smoothness = 0.9  # 缩放平滑度 (0-1)
 
-var current_zoom = 1.0          # 当前缩放值
-var target_zoom = 1.0           # 目标缩放值
-var last_printed_zoom = 1.0     # 上次打印的缩放值
+var current_zoom = 6.0          # 当前缩放值
+var target_zoom = 6.0           # 目标缩放值
+var last_printed_zoom = 6.0     # 上次打印的缩放值
+
+func _ready():
+	# 设置初始缩放
+	zoom = Vector2(current_zoom, current_zoom)
 
 func _process(delta):
 	var direction = Vector2.ZERO
