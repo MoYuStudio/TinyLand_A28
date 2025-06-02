@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://sisaduj5cy0k"]
+[gd_scene load_steps=6 format=3 uid="uid://sisaduj5cy0k"]
 
 [ext_resource type="PackedScene" uid="uid://c8hvhlbp8ldge" path="res://entities/camera/camera.tscn" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://vykjjlxde13p" path="res://interface/main.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://b84sfw8501pg3" path="res://stages/tilemap/Tilemap.tscn" id="3_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://djtsemsu6618g" path="res://interface/statistics_panel.tscn" id="3_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cv4auxgfdni8r" path="res://stages/aether/Aether.tscn" id="4_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dts7tvawo0xxw" path="res://stages/rubbish_wave/rubbish_wave.tscn" id="5_lquwl"]
 
@@ -15,8 +14,6 @@
 
 [node name="Main" parent="UI" instance=ExtResource("2_h2yge")]
 metadata/_edit_use_anchors_ = true
-
-[node name="StatisticsPanel" parent="UI" instance=ExtResource("3_7mycd")]
 
 [node name="Aether" parent="." instance=ExtResource("4_lquwl")]
 

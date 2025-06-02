@@ -34,9 +34,11 @@ func update_statistics():
 		return
 		
 	var stats = Global.get_statistics()
+	print("获取到的统计数据: ", stats)  # 添加调试信息
 	
 	# 更新垃圾数量
 	debris_label.text = "总收集垃圾: %.1f" % stats.total_debris
+	print("更新垃圾数量: ", stats.total_debris)  # 添加调试信息
 	
 	# 更新资源
 	var resources_text = "资源:\n"
@@ -56,14 +58,18 @@ func update_statistics():
 		tiles_text += "%s: %d\n" % [tile, stats.tiles[tile]]
 	tiles_label.text = tiles_text
 
-func _on_debris_collected(_amount):
+func _on_debris_collected(amount):
+	print("收到垃圾收集信号: ", amount)  # 添加调试信息
 	update_statistics()
 
-func _on_resource_updated(_resource_type, _amount):
+func _on_resource_updated(resource_type, amount):
+	print("收到资源更新信号: ", resource_type, " ", amount)  # 添加调试信息
 	update_statistics()
 
-func _on_building_placed(_building_type):
+func _on_building_placed(building_type):
+	print("收到建筑放置信号: ", building_type)  # 添加调试信息
 	update_statistics()
 
-func _on_tile_placed(_tile_type):
+func _on_tile_placed(tile_type):
+	print("收到地形放置信号: ", tile_type)  # 添加调试信息
 	update_statistics() 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://djtsemsu6618g"]
 
-[ext_resource type="Script" uid="uid://blboebt8ylf2y" path="res://interface/statistics_panel.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cw10dqavrr2rl" path="res://interface/statistics_panel/statistics_panel.gd" id="1_script"]
 
 [node name="StatisticsPanel" type="Panel"]
 anchors_preset = 1

@@ -1,0 +1,476 @@
+[gd_scene load_steps=3 format=3 uid="uid://n1rh5ui02yqn"]
+
+[ext_resource type="Script" uid="uid://b1wqr12wlm41o" path="res://interface/building_panel/building_panel.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://b0nehtn4m43eb" path="res://entities/building/art/building.png" id="2_ixnqm"]
+
+[node name="BuildingPanel" type="Panel"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_script")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "建筑选择器"
+horizontal_alignment = 1
+
+[node name="CategoryTabs" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="基础设施" type="ScrollContainer" parent="VBoxContainer/CategoryTabs"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="InfrastructureGrid" type="GridContainer" parent="VBoxContainer/CategoryTabs/基础设施"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
+
+[node name="PlatformButton" type="Button" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/PlatformButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="PlatformIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/PlatformButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/PlatformButton/VBoxContainer"]
+layout_mode = 2
+text = "平台"
+horizontal_alignment = 1
+
+[node name="SupportButton" type="Button" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/SupportButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="SupportIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/SupportButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/SupportButton/VBoxContainer"]
+layout_mode = 2
+text = "支撑"
+horizontal_alignment = 1
+
+[node name="SoilButton" type="Button" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/SoilButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="SoilIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/SoilButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/SoilButton/VBoxContainer"]
+layout_mode = 2
+text = "土壤"
+horizontal_alignment = 1
+
+[node name="NetButton" type="Button" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/NetButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="NetIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/NetButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/基础设施/InfrastructureGrid/NetButton/VBoxContainer"]
+layout_mode = 2
+text = "网"
+horizontal_alignment = 1
+
+[node name="农业" type="ScrollContainer" parent="VBoxContainer/CategoryTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="AgricultureGrid" type="GridContainer" parent="VBoxContainer/CategoryTabs/农业"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
+
+[node name="BerryButton" type="Button" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/BerryButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="BerryIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/BerryButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/BerryButton/VBoxContainer"]
+layout_mode = 2
+text = "浆果"
+horizontal_alignment = 1
+
+[node name="PotatoButton" type="Button" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/PotatoButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="PotatoIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/PotatoButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/PotatoButton/VBoxContainer"]
+layout_mode = 2
+text = "土豆"
+horizontal_alignment = 1
+
+[node name="TreeButton" type="Button" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/TreeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="TreeIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/TreeButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/农业/AgricultureGrid/TreeButton/VBoxContainer"]
+layout_mode = 2
+text = "树"
+horizontal_alignment = 1
+
+[node name="工业" type="ScrollContainer" parent="VBoxContainer/CategoryTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="IndustrialGrid" type="GridContainer" parent="VBoxContainer/CategoryTabs/工业"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
+
+[node name="SolarPanelButton" type="Button" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/SolarPanelButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="SolarPanelIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/SolarPanelButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/SolarPanelButton/VBoxContainer"]
+layout_mode = 2
+text = "太阳能板"
+horizontal_alignment = 1
+
+[node name="CompostButton" type="Button" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/CompostButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="CompostIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/CompostButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/CompostButton/VBoxContainer"]
+layout_mode = 2
+text = "堆肥工厂"
+horizontal_alignment = 1
+
+[node name="CementButton" type="Button" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/CementButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="CementIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/CementButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/CementButton/VBoxContainer"]
+layout_mode = 2
+text = "水泥工厂"
+horizontal_alignment = 1
+
+[node name="MetallurgyButton" type="Button" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/MetallurgyButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="MetallurgyIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/MetallurgyButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/工业/IndustrialGrid/MetallurgyButton/VBoxContainer"]
+layout_mode = 2
+text = "冶金工厂"
+horizontal_alignment = 1
+
+[node name="推进器" type="ScrollContainer" parent="VBoxContainer/CategoryTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="PropulsionGrid" type="GridContainer" parent="VBoxContainer/CategoryTabs/推进器"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
+
+[node name="EngineButton" type="Button" parent="VBoxContainer/CategoryTabs/推进器/PropulsionGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/推进器/PropulsionGrid/EngineButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="EngineIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/推进器/PropulsionGrid/EngineButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/推进器/PropulsionGrid/EngineButton/VBoxContainer"]
+layout_mode = 2
+text = "发动机"
+horizontal_alignment = 1
+
+[node name="ThrusterButton" type="Button" parent="VBoxContainer/CategoryTabs/推进器/PropulsionGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/推进器/PropulsionGrid/ThrusterButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="ThrusterIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/推进器/PropulsionGrid/ThrusterButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/推进器/PropulsionGrid/ThrusterButton/VBoxContainer"]
+layout_mode = 2
+text = "喷射口"
+horizontal_alignment = 1
+
+[node name="装饰" type="ScrollContainer" parent="VBoxContainer/CategoryTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="DecorationGrid" type="GridContainer" parent="VBoxContainer/CategoryTabs/装饰"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
+
+[node name="FlagButton" type="Button" parent="VBoxContainer/CategoryTabs/装饰/DecorationGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CategoryTabs/装饰/DecorationGrid/FlagButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="FlagIcon" type="TextureRect" parent="VBoxContainer/CategoryTabs/装饰/DecorationGrid/FlagButton/VBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_ixnqm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/CategoryTabs/装饰/DecorationGrid/FlagButton/VBoxContainer"]
+layout_mode = 2
+text = "旗帜"
+horizontal_alignment = 1
