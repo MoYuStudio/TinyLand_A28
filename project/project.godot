@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://utilities/global.gd"
+Save="*res://utilities/save.gd"
 
 [display]
 

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b47r5io2rnixc"]
+
+[ext_resource type="Texture2D" uid="uid://dw5xa4j0d3mc0" path="res://entities/rubbish/art/rubbish.png" id="1_ewqhb"]
+[ext_resource type="Script" uid="uid://plq0vswmmjvi" path="res://entities/rubbish/rubbish.gd" id="1_script"]
+
+[node name="Rubbish" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_ewqhb")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)

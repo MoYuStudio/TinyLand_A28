@@ -49,6 +49,7 @@ func _ready():
 	area_2d.input_event.connect(_on_area_2d_input_event)
 	area_2d.mouse_entered.connect(_on_area_2d_mouse_entered)
 	area_2d.mouse_exited.connect(_on_area_2d_mouse_exited)
+	area_2d.area_entered.connect(_on_area_2d_area_entered)
 
 func _on_area_2d_input_event(_viewport, event: InputEvent, _shape_idx):
 	if event is InputEventMouseButton:
@@ -175,6 +176,8 @@ func set_tile_type(new_type: String):
 		update_tile_properties()
 		update_visual()
 		update_alpha()
+		# 通知Global
+		Global.place_tile(new_type)
 
 func can_pass() -> bool:
 	return is_passable
@@ -198,6 +201,8 @@ func add_debris(amount: float):
 	debris_amount += amount
 	if debris_amount > 0 and tile_name == "space":
 		set_tile_type("debris")
+	# 通知Global
+	Global.add_debris(amount)
 
 func remove_debris(amount: float) -> float:
 	var collected = min(debris_amount, amount)
@@ -206,3 +211,12 @@ func remove_debris(amount: float) -> float:
 		set_tile_type("space")
 		debris_amount = 0
 	return collected
+
+func _on_area_2d_area_entered(area: Area2D):
+	# 检查是否是垃圾
+	if area.get_parent() is Node2D and area.get_parent().has_method("_on_area_2d_area_entered"):
+		print("网捕获到垃圾")
+		# 垃圾会自动调用add_debris方法
+
+func get_tile_name() -> String:
+	return tile_name
